@@ -1,0 +1,39 @@
+ext {
+    ver = [
+            spock    : '1.1-groovy-2.4',
+            groovy   : '2.4.12',
+            cglib    : '3.2.5',
+            objenesis: '2.6',
+    ]
+}
+
+apply plugin: 'idea'
+apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.12"
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+    testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.5'
+    testCompile group: 'org.objenesis', name: 'objenesis', version: '2.6'
+}
+
+
+
