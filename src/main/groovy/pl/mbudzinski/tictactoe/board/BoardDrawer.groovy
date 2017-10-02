@@ -5,6 +5,7 @@ class BoardDrawer {
 
     private static final String WHITESPACE = ' '
     private static final String ROW_SEPARATOR = '--'
+    private static final String COLUMN_SEPARATOR = '|'
 
     void printBoard(board) {
         printHeader(board)
@@ -25,7 +26,7 @@ class BoardDrawer {
     }
 
     private void printRow(board, row, index) {
-        print row.join('|')
+        print row.join(COLUMN_SEPARATOR)
         print(WHITESPACE + index)
         println WHITESPACE
         if (index < board.size() - 1) {
