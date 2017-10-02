@@ -23,7 +23,7 @@ class ScannerReader {
             System.out.println(errorPrompt)
             scanner.nextLine()
             // return the fallback value to make the compiler happy
-            return valueToReturnInCaseOfException
+            valueToReturnInCaseOfException
         }
     }
 

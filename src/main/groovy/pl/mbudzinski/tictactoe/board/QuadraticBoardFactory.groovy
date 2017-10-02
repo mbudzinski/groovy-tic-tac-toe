@@ -18,7 +18,7 @@ class QuadraticBoardFactory {
         board
     }
 
-    private static def createEmptyRow(int boardSize) {
+    private createEmptyRow(int boardSize) {
         def row = []
         def rowRange = 1..(boardSize)
 
