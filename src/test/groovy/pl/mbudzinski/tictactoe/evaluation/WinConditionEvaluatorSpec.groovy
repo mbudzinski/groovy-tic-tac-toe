@@ -19,7 +19,7 @@ class WinConditionEvaluatorSpec extends Specification {
             int maxNumberOfTurnsForCurrentBoard = winConditionEvaluator.maxNumberOfTurns
             Player irrelevantPlayer = Player.CROSS
         when:
-            for (int i in 1..maxNumberOfTurnsForCurrentBoard - 1) {
+            for (int i in 1..maxNumberOfTurnsForCurrentBoard) {
                 winConditionEvaluator.hasPlayerWon(irrelevantPlayer)
             }
             def isDraw = winConditionEvaluator.isDraw()

@@ -11,7 +11,7 @@ import java.util.function.Predicate
 class WinConditionEvaluator {
 
     private int winThreshold
-    private int currentNumberOfTurns = 1
+    private int currentNumberOfTurns = 0
     private int maxNumberOfTurns
     private String[][] board
     private DirectionPredicateSupplier directionPredicateSupplier
@@ -110,18 +110,16 @@ class WinConditionEvaluator {
             if (directionPredicateSupplier.getBoundedPredicateForDirection(
                     direction,
                     coordinateToSearchFrom,
-                    board.length,
-                    index
-                ).test(coordinateToSearchFrom)) {
+                    board.length
+            ).test(index)) {
 
-                Predicate<Direction> isSignEqual = directionPredicateSupplier.getEqualityPredicateForDirection(
+                Predicate<Integer> isSignEqual = directionPredicateSupplier.getEqualityPredicateForDirection(
                                 direction,
                                 board,
                                 coordinateToSearchFrom,
-                                activePlayer,
-                                index)
+                                activePlayer)
 
-                if (isSignEqual.test(direction)) {
+                if (isSignEqual.test(index)) {
                     ++counterCopy
                 } else {
                     return counterCopy

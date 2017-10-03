@@ -33,7 +33,7 @@ class Main {
 
         int winThreshold = 0
         winThreshold = scannerReader.assignValueFromStdInWhile(
-                { it -> (it < 3) || (it > 10) || (it > boardSize)},
+                { it -> (it < 3) || (it > 10) || (it > boardSize) },
                 'Please enter the win threshold (3-10)',
                 'Please enter a valid win threshold! (must be less than board size)', winThreshold)
 
@@ -58,7 +58,9 @@ class Main {
             }
             activePlayer = getOppositePlayer(activePlayer)
         }
+
         drawBoard(board)
+
         if (winConditionEvaluator.isDraw()) {
             println("Draw!")
         } else {
@@ -72,11 +74,13 @@ class Main {
         boardDrawer.printBoard(board)
     }
 
-
     private static Coordinate getCoordinateFromStdIn(String[][] board){
         Coordinate coordinate = coordinateFactory.getCoordinateFromStdIn()
         while (!boardValidator.isCoordinateInBoardBounds(board, coordinate)) {
             coordinate = coordinateFactory.getCoordinateFromStdIn()
+            if (!boardValidator.isCoordinateInBoardBounds(board, coordinate)) {
+                System.out.println('Please enter a coordinate which is contained within the board!')
+            }
         }
         coordinate
     }

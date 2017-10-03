@@ -7,56 +7,54 @@ import java.util.function.Predicate
 
 class DirectionPredicateSupplier {
 
-    Predicate<Direction> getEqualityPredicateForDirection(Direction direction,
+    Predicate<Integer> getEqualityPredicateForDirection(Direction direction,
                                                           String[][] board,
                                                           Coordinate coordinate,
-                                                          Player activePlayer,
-                                                          int index) {
+                                                          Player activePlayer) {
         switch (direction){
             case Direction.UP:
-                return { board[coordinate.row - index][coordinate.column] == activePlayer.sign }
+                return { board[coordinate.row - it][coordinate.column] == activePlayer.sign }
             case Direction.DOWN:
-                return { board[coordinate.row + index][coordinate.column] == activePlayer.sign }
+                return { board[coordinate.row + it][coordinate.column] == activePlayer.sign }
             case Direction.LEFT:
-                return { board[coordinate.row][coordinate.column - index] == activePlayer.sign }
+                return { board[coordinate.row][coordinate.column - it] == activePlayer.sign }
             case Direction.RIGHT:
-                return { board[coordinate.row][coordinate.column + index] == activePlayer.sign }
+                return { board[coordinate.row][coordinate.column + it] == activePlayer.sign }
             case Direction.UP_LEFT:
-                return { board[coordinate.row - index][coordinate.column - index] == activePlayer.sign }
+                return { board[coordinate.row - it][coordinate.column - it] == activePlayer.sign }
             case Direction.UP_RIGHT:
-                return { board[coordinate.row - index][coordinate.column + index] == activePlayer.sign }
+                return { board[coordinate.row - it][coordinate.column + it] == activePlayer.sign }
             case Direction.DOWN_LEFT:
-                return { board[coordinate.row + index][coordinate.column - index] == activePlayer.sign }
+                return { board[coordinate.row + it][coordinate.column - it] == activePlayer.sign }
             case Direction.DOWN_RIGHT:
-                return { board[coordinate.row + index][coordinate.column + index] == activePlayer.sign }
+                return { board[coordinate.row + it][coordinate.column + it] == activePlayer.sign }
             default:
                 throw new IllegalArgumentException('Direction not yet implemented!')
         }
     }
 
-    Predicate<Coordinate> getBoundedPredicateForDirection(Direction direction,
+    Predicate<Integer> getBoundedPredicateForDirection(Direction direction,
                                                           Coordinate coordinate,
-                                                          int upperBound,
-                                                          int index) {
+                                                          int upperBound) {
 
         int lowerBound = 0
         switch (direction) {
             case Direction.UP:
-                return { coordinate.row - index >= lowerBound }
+                return { coordinate.row - it >= lowerBound }
             case Direction.DOWN:
-                return { coordinate.row + index < upperBound }
+                return { coordinate.row + it < upperBound }
             case Direction.LEFT:
-                return { coordinate.column - index >= lowerBound }
+                return { coordinate.column - it >= lowerBound }
             case Direction.RIGHT:
-                return { coordinate.column + index < upperBound }
+                return { coordinate.column + it < upperBound }
             case Direction.UP_LEFT:
-                return { (coordinate.row - index >= lowerBound) && (coordinate.column - index >= lowerBound) }
+                return { (coordinate.row - it >= lowerBound) && (coordinate.column - it >= lowerBound) }
             case Direction.UP_RIGHT:
-                return { (coordinate.row - index >= lowerBound) && (coordinate.column + index < upperBound) }
+                return { (coordinate.row - it >= lowerBound) && (coordinate.column + it < upperBound) }
             case Direction.DOWN_LEFT:
-                return { (coordinate.row + index < upperBound) && (coordinate.column - index >= lowerBound) }
+                return { (coordinate.row + it < upperBound) && (coordinate.column - it >= lowerBound) }
             case Direction.DOWN_RIGHT:
-                return { (coordinate.row + index < upperBound) && (coordinate.column + index < upperBound) }
+                return { (coordinate.row + it < upperBound) && (coordinate.column + it < upperBound) }
             default:
                 throw new IllegalArgumentException('Direction not yet implemented!')
         }
