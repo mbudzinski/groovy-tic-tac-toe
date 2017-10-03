@@ -22,10 +22,21 @@ class Main {
 
     static void main(String[] args) {
 
-        int boardSize = getBoardSizeFromStdIn()
+        int boardSize = 0
+        boardSize = scannerReader.assignValueFromStdInWhile(
+                { it -> it < 3 || it > 10 },
+                'Please enter the board size (3-10)',
+                'Please enter a valid board size!', boardSize
+        )
+
         String[][] board = boardFactory.getEmptyBoard(boardSize)
 
-        int winThreshold = getWinThresholdFromStdIn()
+        int winThreshold = 0
+        winThreshold = scannerReader.assignValueFromStdInWhile(
+                { it -> (it < 3) || (it > 10) || (it > boardSize)},
+                'Please enter the win threshold (3-10)',
+                'Please enter a valid win threshold! (must be less than board size)', winThreshold)
+
         winConditionEvaluator = [board, winThreshold, directionPredicateSupplier]
 
         Player activePlayer = Player.CIRCLE
@@ -33,7 +44,7 @@ class Main {
 
         while (!gameEnded) {
             drawBoard(board)
-            println "It's ${activePlayer.name()} turn."
+            println "It's ${activePlayer.name} turn."
             Coordinate coordinate = getCoordinateFromStdIn(board)
 
             boolean isCellTaken = boardValidator.isCellAlreadyOccupied(board, coordinate)
@@ -61,27 +72,6 @@ class Main {
         boardDrawer.printBoard(board)
     }
 
-    private static int getBoardSizeFromStdIn() {
-        int boardSize = 0
-        while (boardSize < 3 || boardSize > 10) {
-            boardSize = scannerReader.readInt(
-                    'Please enter the board size (3-10)',
-                    'Invalid board size!', 0
-            )
-        }
-        boardSize
-    }
-
-    private static int getWinThresholdFromStdIn() {
-        int winThreshold = 0
-        while (winThreshold < 3 || winThreshold > 10) {
-            winThreshold = scannerReader.readInt(
-                    'Please enter the win threshold (3-10)',
-                    'Invalid win threshold size!', 0
-            )
-        }
-        winThreshold
-    }
 
     private static Coordinate getCoordinateFromStdIn(String[][] board){
         Coordinate coordinate = coordinateFactory.getCoordinateFromStdIn()

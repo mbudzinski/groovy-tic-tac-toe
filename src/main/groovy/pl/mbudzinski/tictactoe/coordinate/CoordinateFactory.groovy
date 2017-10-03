@@ -6,11 +6,10 @@ class CoordinateFactory {
 
     private ScannerReader systemInReader
 
-    static final String SIGN_PROMPT = 'Where do you want to put your sign? (row, column)'
-
-    static final String EMPTY_PROMPT = ''
-
-    private static final String INVALID_COORDINATES_ERROR = 'Please enter valid coordinates! (row, column)'
+    static final String ROW_PROMPT = 'Where do you want to put your sign? (row)'
+    static final String COLUMN_PROMPT = 'Where do you want to put your sign? (column)'
+    private static final String INVALID_ROW_ERROR = 'Please enter a valid row number!'
+    private static final String INVALID_COLUMN_ERROR = 'Please enter a valid column number!'
 
     CoordinateFactory(ScannerReader systemInReader) {
         this.systemInReader = systemInReader
@@ -18,11 +17,10 @@ class CoordinateFactory {
 
     Coordinate getCoordinateFromStdIn() {
         int row = -1
+        row = systemInReader.assignValueFromStdInWhile({ it < 0 }, ROW_PROMPT, INVALID_ROW_ERROR, row)
+
         int column = -1
-        while (row < 0 || column < 0) {
-            row = systemInReader.readInt(SIGN_PROMPT, INVALID_COORDINATES_ERROR, -1)
-            column = systemInReader.readInt(EMPTY_PROMPT, INVALID_COORDINATES_ERROR, -1)
-        }
+        column = systemInReader.assignValueFromStdInWhile({ it < 0 }, COLUMN_PROMPT, INVALID_COLUMN_ERROR, column)
 
         Coordinate coordinate = [row, column]
     }

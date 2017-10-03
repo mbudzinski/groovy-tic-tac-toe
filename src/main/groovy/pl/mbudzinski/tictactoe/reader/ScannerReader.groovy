@@ -1,5 +1,7 @@
 package pl.mbudzinski.tictactoe.reader
 
+import java.util.function.Predicate
+
 class ScannerReader {
 
     private Scanner scanner
@@ -8,23 +10,26 @@ class ScannerReader {
         this.scanner = scanner
     }
 
-    /** This method should be (in order to handle InputMismatchException when using System.in) used in a while loop.
-     *  In case of InputMismatchException the errorPrompt is displayed and fallback value is returned
-     *  @return An int via the scanner's input stream. In case of InputMismatchException fallback value is returned.
-    * */
-    int readInt(String prompt,
-                String errorPrompt,
-                int valueToReturnInCaseOfException) {
+    int assignValueFromStdInWhile(Predicate<Integer> condition,
+                                  String prompt,
+                                  String errorPrompt,
+                                  int initialValue) {
 
-        System.out.println(prompt)
-        try {
-            return scanner.nextInt()
-        } catch (InputMismatchException ex) {
-            System.out.println(errorPrompt)
-            scanner.nextLine()
-            // return the fallback value to make the compiler happy
-            valueToReturnInCaseOfException
+        while (condition.test(initialValue)) {
+            try {
+                println(prompt)
+                initialValue = scanner.nextInt()
+                if (condition.test(initialValue)) {
+                    println(errorPrompt)
+                } else {
+                    break
+                }
+            } catch (InputMismatchException ex) {
+                println(errorPrompt)
+                scanner.nextLine()
+            }
         }
+        initialValue
     }
 
     void close() {
