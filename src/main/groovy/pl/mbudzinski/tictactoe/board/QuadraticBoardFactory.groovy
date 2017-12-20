@@ -26,6 +26,4 @@ class QuadraticBoardFactory {
 
         row
     }
-
-
 }

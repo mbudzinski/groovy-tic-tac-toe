@@ -11,8 +11,14 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName='pl.mbudzinski.tictactoe.Main'
-
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+        groovy.outputDir = file('build/classes/java/main')
+    }
+}
 
 buildscript {
     repositories {
@@ -39,12 +45,14 @@ dependencies {
     testCompile group: 'org.objenesis', name: 'objenesis', version: '2.6'
 }
 
-task preparejar(type: Jar,dependsOn:[':compileGroovy']) {
+mainClassName='pl.mbudzinski.tictactoe.Main'
+
+task preparejar(type: Jar, dependsOn:[':compileGroovy']) {
     from files(sourceSets.main.output.classesDir)
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
 
     manifest {
-        attributes  'Main-Class': mainClassName
+        attributes 'Main-Class': mainClassName
     }
 }
 

@@ -24,5 +24,4 @@ class CoordinateFactory {
 
         Coordinate coordinate = [row, column]
     }
-
 }

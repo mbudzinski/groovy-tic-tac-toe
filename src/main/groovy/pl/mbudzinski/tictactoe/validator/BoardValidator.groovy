@@ -9,10 +9,7 @@ class BoardValidator {
         if (coordinate.row < 0 || (coordinate.row > list.length - 1)) {
             return false
         }
-        if (coordinate.column < 0 || (coordinate.column > list[0].length - 1)) {
-            return false
-        }
-        true
+        !(coordinate.column < 0 || (coordinate.column > list[0].length - 1))
     }
 
     boolean isCellAlreadyOccupied(String[][] board, Coordinate coordinate) {

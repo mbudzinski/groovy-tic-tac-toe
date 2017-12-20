@@ -49,10 +49,7 @@ class WinConditionEvaluator {
                 }
             }
         }
-        if (somePlayerWon) {
-            return true
-        }
-        false
+        somePlayerWon
     }
 
     private boolean checkCellForWin(Player activePlayer, Coordinate coordinate) {
@@ -77,11 +74,7 @@ class WinConditionEvaluator {
 
         BiDirection upRightDownLeft = [Direction.UP_RIGHT, Direction.DOWN_LEFT]
 
-        if (performBiDirectionalSearch(upRightDownLeft, coordinate, activePlayer, startingCounter)) {
-            return true
-        }
-
-        false
+        performBiDirectionalSearch(upRightDownLeft, coordinate, activePlayer, startingCounter)
     }
 
     private boolean performBiDirectionalSearch(BiDirection biDirection,
@@ -95,10 +88,7 @@ class WinConditionEvaluator {
         }
         counter = performSearchInDirection(biDirection.secondDirection, coordinateToSearchFrom, activePlayer, counter)
 
-        if (counter >= winThreshold) {
-            return true
-        }
-        false
+        counter >= winThreshold
     }
 
     private int performSearchInDirection(Direction direction,
