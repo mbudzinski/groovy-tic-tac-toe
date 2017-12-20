@@ -18,6 +18,11 @@ sourceSets {
         }
         groovy.outputDir = file('build/classes/java/main')
     }
+    test {
+        java {
+            srcDirs = ['test/groovy']
+        }
+    }
 }
 
 buildscript {
@@ -47,7 +52,9 @@ dependencies {
 
 mainClassName='pl.mbudzinski.tictactoe.Main'
 
-task preparejar(type: Jar, dependsOn:[':compileGroovy']) {
+
+
+task preparejar(type: Jar, dependsOn:[':test', ':compileGroovy']) {
     from files(sourceSets.main.output.classesDir)
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
 
@@ -55,6 +62,8 @@ task preparejar(type: Jar, dependsOn:[':compileGroovy']) {
         attributes 'Main-Class': mainClassName
     }
 }
+
+
 
 
 
